@@ -6,6 +6,7 @@ import com.xworkz.courseenrollment.entity.CourseApplicationEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class CourseApplicationRepositoryImpl implements CourseApplicationRepository {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("course-app");
@@ -27,5 +28,27 @@ public class CourseApplicationRepositoryImpl implements CourseApplicationReposit
             entityManager.close();
             emf.close();
         }
+    }
+
+    @Override
+    public List<CourseApplicationEntity> getApplicationDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<CourseApplicationEntity> courseApplicationEntities = null;
+        try {
+            courseApplicationEntities = entityManager.createQuery("SELECT a FROM CourseApplicationEntity a", CourseApplicationEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager .close();
+        }
+        return courseApplicationEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

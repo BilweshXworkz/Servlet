@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class JobApplyServicesImpl implements JobApplyServices{
@@ -34,5 +36,31 @@ public class JobApplyServicesImpl implements JobApplyServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<JobApplydto> getApply() {
+        List<JobApplyEntity> entities = jobApplyRepository.getApplyDetails();
+        List<JobApplydto> dtoList = new ArrayList<>();
+        try{
+            for (JobApplyEntity entity : entities){
+                JobApplydto dto = new JobApplydto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        jobApplyRepository.deleteById(id);
+        if (jobApplyRepository != null) {
+            jobApplyRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

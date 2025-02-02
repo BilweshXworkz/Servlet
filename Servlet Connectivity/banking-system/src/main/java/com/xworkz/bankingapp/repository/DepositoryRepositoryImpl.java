@@ -5,6 +5,8 @@ import com.xworkz.bankingapp.entity.DepositoryEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.List;
 
 public class DepositoryRepositoryImpl implements DepositoryRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("depository");
@@ -25,4 +27,27 @@ public class DepositoryRepositoryImpl implements DepositoryRepository{
             emf.close();
         }
     }
+
+    @Override
+    public List<DepositoryEntity> getDepositoryDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<DepositoryEntity> depositoryEntities = null;
+        try{
+            depositoryEntities = entityManager.createQuery("SELECT a From DepositoryEntity a", DepositoryEntity.class)
+                    .getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.close();
+        }
+        return  depositoryEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
+    }
+
 }

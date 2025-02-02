@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ShoppingDto {
+    private Integer id;
     private String firstName;
     private Long phoneNumber;
     private String pName;

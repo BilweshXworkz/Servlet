@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,5 +37,31 @@ public class FeedbackServicesImpl implements FeedbackServices {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<FeedbackDto> getFeedback() {
+        List<FeedbackEntity> entities = feedbackRepository.getFeedbackDetails();
+        List<FeedbackDto> dtoList = new ArrayList<>();
+        try{
+            for (FeedbackEntity entity : entities){
+                FeedbackDto dto = new FeedbackDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        feedbackRepository.deleteById(id);
+        if (feedbackRepository != null) {
+            feedbackRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

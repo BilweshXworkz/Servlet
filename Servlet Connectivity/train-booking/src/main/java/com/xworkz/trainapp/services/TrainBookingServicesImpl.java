@@ -8,6 +8,8 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class TrainBookingServicesImpl implements TrainBookingServices{
@@ -30,5 +32,31 @@ public class TrainBookingServicesImpl implements TrainBookingServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<TrainBookingDto> getTrain() {
+        List<TrainBookingEntity> entities = trainBookingRepository.getTrainDetails();
+        List<TrainBookingDto> dtoList = new ArrayList<>();
+        try{
+            for (TrainBookingEntity entity : entities){
+                TrainBookingDto dto = new TrainBookingDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        trainBookingRepository.deleteById(id);
+        if (trainBookingRepository != null) {
+            trainBookingRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

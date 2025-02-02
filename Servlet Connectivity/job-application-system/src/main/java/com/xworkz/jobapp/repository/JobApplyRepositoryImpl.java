@@ -6,6 +6,7 @@ import com.xworkz.jobapp.entity.JobApplyEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JobApplyRepositoryImpl implements JobApplyRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("job-app");
@@ -25,7 +26,28 @@ public class JobApplyRepositoryImpl implements JobApplyRepository{
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+    }
+
+    @Override
+    public List<JobApplyEntity> getApplyDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<JobApplyEntity> jobApplyEntities = null;
+        try {
+            jobApplyEntities = entityManager.createQuery("SELECT a FROM JobApplyEntity a", JobApplyEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return jobApplyEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

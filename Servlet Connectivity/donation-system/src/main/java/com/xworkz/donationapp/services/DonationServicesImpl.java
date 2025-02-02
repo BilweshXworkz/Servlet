@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,5 +37,30 @@ public class DonationServicesImpl implements DonationServices {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<DonationDto> getDonation() {
+        List<DonationEntity> entities = donationRepository.getDonationDetails();
+        List<DonationDto> dtoList = new ArrayList<>();
+        try{
+            for (DonationEntity entity : entities){
+                DonationDto dto = new DonationDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+    public void deleteById(int id) {
+        donationRepository.deleteById(id);
+        if (donationRepository != null) {
+            donationRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

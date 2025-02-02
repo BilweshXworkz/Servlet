@@ -6,6 +6,7 @@ import com.xworkz.donationapp.entity.DonationEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class DonationRepositoryImpl implements DonationRepository {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("donation-app");
@@ -25,7 +26,28 @@ public class DonationRepositoryImpl implements DonationRepository {
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+    }
+
+    @Override
+    public List<DonationEntity> getDonationDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<DonationEntity> donationEntities = null;
+        try {
+            donationEntities = entityManager.createQuery("SELECT a FROM DonationEntity a", DonationEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return donationEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 
 public class EventDto {
+    private Integer id;
     private String uName;
     private String dob;
     private String email;

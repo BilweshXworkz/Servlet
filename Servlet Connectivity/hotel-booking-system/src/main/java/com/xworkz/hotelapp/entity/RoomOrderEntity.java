@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Table(name = "order_room")
-
+@NamedQuery(name = "deleteById", query = "DELETE FROM RoomOrderEntity r WHERE r.id = :id")
 public class RoomOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

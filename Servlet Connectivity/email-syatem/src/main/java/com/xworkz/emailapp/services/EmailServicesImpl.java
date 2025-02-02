@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class EmailServicesImpl implements EmailServices{
@@ -34,5 +36,26 @@ public class EmailServicesImpl implements EmailServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<EmailDto> getEmail() {
+        List<EmailEntity> entities = emailRepository.getEmailDetails();
+        List<EmailDto> dtoList = new ArrayList<>();
+        try {
+            for (EmailEntity entity : entities) {
+                EmailDto dto = new EmailDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    @Override
+    public void deleteByToEmail(String toEmail) {
+        emailRepository.deleteByToEmail(toEmail);
     }
 }

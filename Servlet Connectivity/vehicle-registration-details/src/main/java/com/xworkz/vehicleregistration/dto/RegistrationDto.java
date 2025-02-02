@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 
 public class RegistrationDto {
+    private Integer id;
     private String firstName;
     private String lastName;
     private Long phoneNumber;

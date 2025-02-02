@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@NamedQuery(name = "deleteById", query = "DELETE FROM MoviesEntity r WHERE r.id = :id")
 @Table(name = "movie")
 public class MoviesEntity {
     @Id

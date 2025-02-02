@@ -6,6 +6,7 @@ import com.xworkz.shoppingapp.entity.ShoppingEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class ShoppingRepositoryImpl implements ShoppingRepository {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("shop");
@@ -24,7 +25,28 @@ public class ShoppingRepositoryImpl implements ShoppingRepository {
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+    }
+
+    @Override
+    public List<ShoppingEntity> getShoppingDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<ShoppingEntity> shoppingEntities = null;
+        try {
+            shoppingEntities = entityManager.createQuery("SELECT a FROM ShoppingEntity a", ShoppingEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return shoppingEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

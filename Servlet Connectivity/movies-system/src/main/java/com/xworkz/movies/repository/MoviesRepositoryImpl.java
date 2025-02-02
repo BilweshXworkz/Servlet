@@ -5,6 +5,7 @@ import com.xworkz.movies.entity.MoviesEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class MoviesRepositoryImpl implements MoviesRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("movie");
@@ -26,5 +27,26 @@ public class MoviesRepositoryImpl implements MoviesRepository{
             entityManager.close();
             emf.close();
         }
+    }
+    @Override
+    public List<MoviesEntity> getMoviesDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<MoviesEntity> moviesEntities = null;
+        try {
+            moviesEntities = entityManager.createQuery("SELECT a FROM MoviesEntity a", MoviesEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return moviesEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

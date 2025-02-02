@@ -7,6 +7,8 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class RoomOrderServicesImpl implements RoomOrderServices {
@@ -29,5 +31,31 @@ public class RoomOrderServicesImpl implements RoomOrderServices {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<RoomOrderDto> getRoom() {
+        List<RoomOrderEntity> entities = roomRepository.getOrderDetails();
+        List<RoomOrderDto> dtoList = new ArrayList<>();
+        try{
+            for (RoomOrderEntity entity : entities){
+                RoomOrderDto dto = new RoomOrderDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        roomRepository.deleteById(id);
+        if (roomRepository != null) {
+            roomRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

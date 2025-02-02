@@ -2,25 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Course Enrollment</title>
+    <title>Vehicle Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
-<div>
+<div class="card shadow-lg p-4" style="width: 290px;">
+    <h3 class="text-center mb-3 ">Vehicle Registration</h3>
     <form action="submit" method="post">
-        First Name : <input type="text" name="firstName">
-        Last Name : <input type="text" name="lastName"><br>
-        <br>
-        Phone Number : <input type="text" name="phoneNumber"><br>
-        <br>
-        Email ID : <input type="text" name="emailId"><br>
-        <br>
-        Vehicle Name : <input type="text" name="vehicleName"><br>
-        <br>
-        Vehicle Type : <input type="text" name="vehicleType"><br>
-        <br>
-        RTO Code : <input type="text" name="code"><br>
-        <br>
-        <input type="submit" value="Submit">
+    <div class="md-3">
+        <label form="form-label">First Name</label>
+        <input type="text" name="firstName">
+        <label form="form-label">Last Name</label>
+        <input type="text" name="lastName">
+        <label form="form-label">Phone Number</label>
+        Phone Number : <input type="text" name="phoneNumber">
+        <label form="form-label">Email ID</label>
+        <input type="text" name="emailId">
+        <label form="form-label">Vehicle Name</label>
+        <input type="text" name="vehicleName">
+        <label form="form-label">Vehicle Type</label>
+        <input type="text" name="vehicleType">
+        <label form="form-label">RTO Code</label>
+        <input type="text" name="code">
+        </div>
+        <div class="md-3">
+            <button type="submit" value="Submit" class="btn btn-primary mt-3">Submit</button>
+            <a href="details" class="btn btn-secondary mt-3">Vehicle Details</a>
+        </div>
     </form>
 </div>
 </body>

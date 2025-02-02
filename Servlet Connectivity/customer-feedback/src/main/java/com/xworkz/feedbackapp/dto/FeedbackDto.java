@@ -3,7 +3,8 @@ package com.xworkz.feedbackapp.dto;
 import lombok.Data;
 
 @Data
-public class FeedbackDto {
+public class FeedbackDto{
+    private Integer id;
     private String firstName;
     private String  lastName;
     private Long phoneNumber;

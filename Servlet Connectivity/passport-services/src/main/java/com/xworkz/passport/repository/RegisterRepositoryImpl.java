@@ -5,6 +5,7 @@ import com.xworkz.passport.entity.RegisterEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class RegisterRepositoryImpl implements RegisterRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("register");
@@ -25,5 +26,26 @@ public class RegisterRepositoryImpl implements RegisterRepository{
             entityManager.close();
             emf.close();
         }
+    }
+    @Override
+    public List<RegisterEntity> getRegisterDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<RegisterEntity> registerEntities = null;
+        try {
+            registerEntities = entityManager.createQuery("SELECT a FROM RegisterEntity a", RegisterEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return registerEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

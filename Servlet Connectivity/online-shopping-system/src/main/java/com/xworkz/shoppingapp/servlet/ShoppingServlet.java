@@ -30,8 +30,12 @@ public class ShoppingServlet extends HttpServlet {
         shoppingDto.setAddress(address);
         ShoppingServices shoppingServices = new ShoppingServicesImpl();
         shoppingServices.ValidAndSave(shoppingDto);
+
+        // scoping
         req.setAttribute("fname", firstName);
 
+        //Request dispatcher
+        // servlet channing
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
     }

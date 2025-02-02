@@ -26,6 +26,7 @@ public class DepositoryServlet extends HttpServlet {
         DepositoryDto dto = new DepositoryDto();
         dto.setFullName(fullName);
         dto.setDob(dob);
+        dto.setEmailId(email);
         dto.setAcNumber(Long.parseLong(acNumber));
         dto.setDepository(Integer.parseInt(depository));
 

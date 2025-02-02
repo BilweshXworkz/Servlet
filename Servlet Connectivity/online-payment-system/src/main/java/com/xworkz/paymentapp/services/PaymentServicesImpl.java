@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class PaymentServicesImpl implements PaymentServices{
@@ -33,5 +35,31 @@ public class PaymentServicesImpl implements PaymentServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<PaymentDto> getPayment() {
+        List<PaymetEntity> entities = paymentRepository.getPaymentDetails();
+        List<PaymentDto> dtoList = new ArrayList<>();
+        try{
+            for (PaymetEntity entity : entities){
+                PaymentDto dto = new PaymentDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        paymentRepository.deleteById(id);
+        if (paymentRepository != null) {
+            paymentRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

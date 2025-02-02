@@ -6,13 +6,13 @@ import com.xworkz.shoppingapp.repository.ShoppingRepository;
 import com.xworkz.shoppingapp.repository.ShoppingRepositoryImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ShoppingServicesImpl implements ShoppingServices {
@@ -36,5 +36,31 @@ public class ShoppingServicesImpl implements ShoppingServices {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<ShoppingDto> getShopping() {
+        List<ShoppingEntity> entities = shoppingRepository.getShoppingDetails();
+        List<ShoppingDto> dtoList = new ArrayList<>();
+        try{
+            for (ShoppingEntity entity : entities){
+                ShoppingDto dto = new ShoppingDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        shoppingRepository.deleteById(id);
+        if (shoppingRepository != null) {
+            shoppingRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

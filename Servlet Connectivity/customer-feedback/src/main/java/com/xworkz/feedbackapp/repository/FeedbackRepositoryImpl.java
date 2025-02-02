@@ -6,6 +6,8 @@ import com.xworkz.feedbackapp.entity.FeedbackEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.List;
 
 public class FeedbackRepositoryImpl implements FeedbackRepository {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("feedback-app");
@@ -25,7 +27,28 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+    }
+
+    @Override
+    public List<FeedbackEntity> getFeedbackDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<FeedbackEntity> feedbackEntities = null;
+        try {
+            feedbackEntities = entityManager.createQuery("SELECT a FROM FeedbackEntity a", FeedbackEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager .close();
+        }
+        return feedbackEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

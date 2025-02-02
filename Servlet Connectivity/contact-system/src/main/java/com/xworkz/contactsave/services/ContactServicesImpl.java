@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ContactServicesImpl implements ContactServices{
@@ -34,5 +36,31 @@ public class ContactServicesImpl implements ContactServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<ContactDto> getContact() {
+        List<ContactEntity> entities = contactRepository.getContactDetails();
+        List<ContactDto> dtoList = new ArrayList<>();
+        try{
+            for (ContactEntity entity : entities){
+                ContactDto dto = new ContactDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        contactRepository.deleteById(id);
+        if (contactRepository != null) {
+            contactRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

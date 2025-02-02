@@ -12,6 +12,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class RegistrationServicesImpl implements RegistrationServices{
@@ -35,5 +37,32 @@ public class RegistrationServicesImpl implements RegistrationServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<RegistrationDto> getRegistration() {
+        List<RegistrationEntity> entities = repository.getRegistrationDetails();
+        List<RegistrationDto> dtoList = new ArrayList<>();
+        try{
+            for (RegistrationEntity entity : entities){
+                RegistrationDto dto = new RegistrationDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    @Override
+    public void deleteById(int id) {
+        repository.deleteById(id);
+        if (repository != null) {
+            repository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+       }
     }
 }

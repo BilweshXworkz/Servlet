@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "appointment_app")
+@NamedQuery(name = "deleteById", query = "DELETE FROM AppointmentEntity r WHERE r.id = :id")
 public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 
 public class TrainBookingDto {
+    private Integer id;
     private String fName;
     private String lName;
     private String dob;

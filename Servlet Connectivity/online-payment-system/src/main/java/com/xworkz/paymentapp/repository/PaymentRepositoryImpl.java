@@ -6,6 +6,7 @@ import com.xworkz.paymentapp.entity.PaymetEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class PaymentRepositoryImpl implements PaymentRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("onpay");
@@ -25,5 +26,26 @@ public class PaymentRepositoryImpl implements PaymentRepository{
             entityManager.close();
             emf.close();
         }
+    }
+    @Override
+    public List<PaymetEntity> getPaymentDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<PaymetEntity> paymetEntities = null;
+        try {
+            paymetEntities = entityManager.createQuery("SELECT a FROM PaymetEntity a", PaymetEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return paymetEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

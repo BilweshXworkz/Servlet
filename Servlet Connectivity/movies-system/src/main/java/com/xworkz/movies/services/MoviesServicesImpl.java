@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class MoviesServicesImpl implements MoviesServices{
@@ -34,5 +36,31 @@ public class MoviesServicesImpl implements MoviesServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<MoviesDto> getMovies() {
+        List<MoviesEntity> entities = moviesRepository.getMoviesDetails();
+        List<MoviesDto> dtoList = new ArrayList<>();
+        try{
+            for (MoviesEntity entity : entities){
+                MoviesDto dto = new MoviesDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        moviesRepository.deleteById(id);
+        if (moviesRepository != null) {
+            moviesRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

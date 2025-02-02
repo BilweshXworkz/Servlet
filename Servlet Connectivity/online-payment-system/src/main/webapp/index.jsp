@@ -2,22 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Online Payment</title>
+    <title>Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
-<div>
+<div class="card shadow-lg p-4" style="width: 290px;">
+    <h3 class="text-center mb-3 ">Payment</h3>
     <form action="pay" method="post">
-        First Name : <input type="text" name="firstName"><br>
-        <br>
-        Phone Number : <input type="text" name="phoneNumber"><br>
-        <br>
-        IFS Code : <input type="text" name="ifsCode"><br>
-        <br>
-        Account Number : <input type="text" name="account"><br>
-        <br>
-        Amount Rs : <input type="text" name="amount"><br>
-        <br>
-        <input type="submit" value="Pay">
+        <div class="md-3">
+            <label for="form-label">First Name</label>
+            <input type="text" name="firstName">
+            <label for="form-label">Phone Number</label>
+            <input type="text" name="phoneNumber">
+            <label for="form-label">IFSE Code</label>
+            <input type="text" name="ifsCode">
+            <label for="form-label">Account Number</label>
+            <input type="text" name="account">
+            <label for="form-label">Amount</label>
+            <input type="text" name="amount">
+        </div>
+        <div class="md-3">
+            <button type="submit" value="Pay" class="btn btn-primary mt-3">Submit</button>
+            <a href="details" class="btn btn-secondary mt-3">Payment Details</a>
+        </div>
     </form>
 </div>
 </body>

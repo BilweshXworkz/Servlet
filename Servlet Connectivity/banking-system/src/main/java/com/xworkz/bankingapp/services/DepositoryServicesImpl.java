@@ -8,6 +8,10 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.*;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class DepositoryServicesImpl implements DepositoryServices {
@@ -29,5 +33,31 @@ public class DepositoryServicesImpl implements DepositoryServices {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<DepositoryDto> GetDepository() {
+        List<DepositoryEntity> depositoryEntities = depositoryRepository.getDepositoryDetails();
+        List<DepositoryDto> dtoList = new ArrayList<>();
+        try{
+            for (DepositoryEntity entity : depositoryEntities){
+                DepositoryDto dto = new DepositoryDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        depositoryRepository.deleteById(id);
+        if (depositoryRepository != null) {
+            depositoryRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

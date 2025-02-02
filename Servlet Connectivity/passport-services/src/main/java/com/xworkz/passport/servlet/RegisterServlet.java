@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet (urlPatterns = "/apply")
+@WebServlet (urlPatterns = "/submit")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,9 +29,7 @@ public class RegisterServlet extends HttpServlet {
         dto.setAddress(address);
         RegisterServices registerServices = new RegisterServicesImpl();
         registerServices.validAndSave(dto);
-
         req.setAttribute("fname", fName);
-
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
 

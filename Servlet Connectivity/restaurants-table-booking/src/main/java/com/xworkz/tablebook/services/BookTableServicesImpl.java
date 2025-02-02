@@ -11,6 +11,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class BookTableServicesImpl implements BookTableServices{
@@ -33,5 +37,31 @@ public class BookTableServicesImpl implements BookTableServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<BookTableDto> getBook() {
+        List<BookTableEntity> entities = bookTableRepository.getBookDetails();
+        List<BookTableDto> dtoList = new ArrayList<>();
+        try{
+            for (BookTableEntity entity : entities){
+                BookTableDto dto = new BookTableDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        bookTableRepository.deleteById(id);
+        if (bookTableRepository != null) {
+            bookTableRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

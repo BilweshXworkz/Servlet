@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class TravelBookingServicesImpl implements TravelBookingServices{
@@ -33,5 +35,31 @@ public class TravelBookingServicesImpl implements TravelBookingServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<TravelBookingDto> getBooking() {
+        List<TravelingBookingEntity> entities = travelBookingRepository.getBookingDetails();
+        List<TravelBookingDto> dtoList = new ArrayList<>();
+        try{
+            for (TravelingBookingEntity entity : entities){
+                TravelBookingDto dto = new TravelBookingDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        travelBookingRepository.deleteById(id);
+        if (travelBookingRepository != null) {
+            travelBookingRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

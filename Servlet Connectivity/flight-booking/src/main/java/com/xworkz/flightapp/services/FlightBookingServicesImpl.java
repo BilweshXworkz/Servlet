@@ -6,9 +6,10 @@ import com.xworkz.flightapp.repository.FlightBookingRepository;
 import com.xworkz.flightapp.repository.FlightBookingRepositoryImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.enterprise.inject.spi.Bean;
 import javax.validation.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class FlightBookingServicesImpl implements FlightBookingServices {
@@ -24,14 +25,37 @@ public class FlightBookingServicesImpl implements FlightBookingServices {
         }
         FlightBookingEntity entity = new FlightBookingEntity();
         try{
-            System.out.println("Service Dto :"+dto);
             BeanUtils.copyProperties(entity, dto);
-            System.out.println("Service Entity :"+entity);
             Boolean isAdded = flightBookingRepository.save(entity);
             return isAdded;
         }catch (IllegalAccessException | InvocationTargetException e){
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<FlightBookingDto> getflight() {
+        List<FlightBookingEntity> entities = flightBookingRepository.getFlightDetails();
+        List<FlightBookingDto> dtoList = new ArrayList<>();
+        try{
+            for (FlightBookingEntity entity : entities){
+                FlightBookingDto dto = new FlightBookingDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+    public void deleteById(int id) {
+        flightBookingRepository.deleteById(id);
+        if (flightBookingRepository != null) {
+            flightBookingRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

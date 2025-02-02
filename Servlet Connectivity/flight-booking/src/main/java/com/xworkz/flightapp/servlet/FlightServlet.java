@@ -17,11 +17,12 @@ import java.io.PrintWriter;
 public class FlightServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         System.out.println("Setvlet Started");
         String fName = req.getParameter("fName");
         String from = req.getParameter("from");
         String departure= req.getParameter("departure");
-        String returns = req.getParameter("return");
+        String returns = req.getParameter("returns");
         String num = req.getParameter("num");
 
         FlightBookingDto dto = new FlightBookingDto();
@@ -30,8 +31,9 @@ public class FlightServlet extends HttpServlet {
         dto.setDeparture(departure);
         dto.setReturns(returns);
         dto.setNumber(Integer.parseInt(num));
-        System.out.println("Servlet :"+dto);
 
+        FlightBookingServices flightBookingServices = new FlightBookingServicesImpl();
+        flightBookingServices.valideAndSave(dto);
         req.setAttribute("fname", fName);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");

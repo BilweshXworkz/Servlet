@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,5 +37,31 @@ public class CourseApplicationServicesImpl implements CourseApplicationServices 
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<CourseApplicationDto> getCourse() {
+        List<CourseApplicationEntity> entities = courseApplicationRepository.getApplicationDetails();
+        List<CourseApplicationDto> dtoList = new ArrayList<>();
+        try{
+            for (CourseApplicationEntity entity : entities){
+                CourseApplicationDto dto = new CourseApplicationDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        courseApplicationRepository.deleteById(id);
+        if (courseApplicationRepository != null) {
+            courseApplicationRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

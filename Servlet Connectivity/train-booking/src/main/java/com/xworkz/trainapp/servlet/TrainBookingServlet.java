@@ -31,7 +31,6 @@ public class TrainBookingServlet extends HttpServlet {
         TrainBookingServices trainBookingServices = new TrainBookingServicesImpl();
         trainBookingServices.validAndSave(dto);
         req.setAttribute("fname", fName);
-
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
     }

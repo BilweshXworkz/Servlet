@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class RegisterServicesImpl implements RegisterServices {
@@ -34,5 +36,30 @@ RegisterRepository registerRepository = new RegisterRepositoryImpl();
             System.out.println(e.getMessage());
         }
         return false;
+    }
+    @Override
+    public List<RegisterDto> getRegister() {
+        List<RegisterEntity> entities = registerRepository.getRegisterDetails();
+        List<RegisterDto> dtoList = new ArrayList<>();
+        try{
+            for (RegisterEntity entity : entities){
+                RegisterDto dto = new RegisterDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        registerRepository.deleteById(id);
+        if (registerRepository != null) {
+            registerRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }

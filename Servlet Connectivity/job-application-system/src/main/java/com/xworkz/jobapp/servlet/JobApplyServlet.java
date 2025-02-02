@@ -35,7 +35,5 @@ public class JobApplyServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
-//        PrintWriter printWriter =resp.getWriter();
-//        printWriter.write("Thank you " +firstName+" Applying for job");
     }
 }

@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Table(name = "register")
-
+@NamedQuery(name = "deleteById", query = "DELETE FROM RegisterEntity r WHERE r.id = :id")
 public class RegisterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

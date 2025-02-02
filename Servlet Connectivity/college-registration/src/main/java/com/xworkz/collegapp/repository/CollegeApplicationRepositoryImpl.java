@@ -7,6 +7,8 @@ import com.xworkz.collegapp.entity.CollegeApplicationEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.List;
 
 public class CollegeApplicationRepositoryImpl implements CollegeApplicationRepository {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("college-app");
@@ -26,7 +28,29 @@ public class CollegeApplicationRepositoryImpl implements CollegeApplicationRepos
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+    }
+
+    @Override
+    public List<CollegeApplicationEntity> getCollegeApplicationDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List <CollegeApplicationEntity>  collegeApplicationEntities = null;
+        try{
+            collegeApplicationEntities = entityManager.createQuery("SELECT a FROM CollegeApplicationEntity a", CollegeApplicationEntity.class)
+                    .getResultList();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.close();
+        }
+        return collegeApplicationEntities;
+
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

@@ -5,6 +5,8 @@ import com.xworkz.tablebook.entity.BookTableEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.List;
 
 public class BookTableRepositoryImpl implements BookTableRepository{
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("book");
@@ -23,7 +25,29 @@ public class BookTableRepositoryImpl implements BookTableRepository{
         }
         finally {
             entityManager.close();
-            emf.close();
+//            emf.close();
         }
+    }
+
+    @Override
+    public List<BookTableEntity> getBookDetails() {
+        EntityManager entityManager = emf.createEntityManager();
+        List<BookTableEntity> bookTableEntities = null;
+        try {
+            bookTableEntities = entityManager.createQuery("SELECT a FROM BookTableEntity a", BookTableEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println("Error fetching appointments: " + e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+        return bookTableEntities;
+    }
+
+    public void deleteById(int id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+        em.getTransaction().commit();
     }
 }

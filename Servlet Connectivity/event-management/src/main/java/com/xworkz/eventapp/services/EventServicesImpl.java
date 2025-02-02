@@ -8,6 +8,9 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class EventServicesImpl implements EventServices{
@@ -30,5 +33,31 @@ public class EventServicesImpl implements EventServices{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<EventDto> getEvent() {
+        List<EventEntity> entities = eventRepository.getEventDetails();
+        List<EventDto> dtoList = new ArrayList<>();
+        try{
+            for (EventEntity entity : entities){
+                EventDto dto = new EventDto();
+                BeanUtils.copyProperties(dto, entity);
+                dtoList.add(dto);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dtoList;
+    }
+
+    public void deleteById(int id) {
+        eventRepository.deleteById(id);
+        if (eventRepository != null) {
+            eventRepository.deleteById(id);
+            System.out.println("User profile with id " + id + " deleted successfully");
+        } else {
+            System.out.println("User profile with id " + id + " not found");
+        }
     }
 }
