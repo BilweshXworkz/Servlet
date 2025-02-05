@@ -63,4 +63,31 @@ public class JobApplyServicesImpl implements JobApplyServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public JobApplydto getApplyById(int id) {
+        if (id > 0){
+            JobApplydto dto = new JobApplydto();
+            JobApplyEntity entity = jobApplyRepository.getApplyById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateApplication(JobApplydto jobApplydto) {
+        JobApplyEntity entity = new JobApplyEntity();
+        try{
+            BeanUtils.copyProperties(entity, jobApplydto);
+            jobApplyRepository.updateApplication(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

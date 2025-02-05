@@ -36,7 +36,8 @@
         <td>${ movies.getMName() }</td>
         <td>${ movies.getHero() }</td>
         <td>${ movies.getHeroin() }</td>
-        <td><a href="delete?userId=${movies.getId()}">DELETE</a></td>
+        <td><a href="delete?userId=${movies.getId()}">DELETE</a>
+        <a href="updateById?userId=${movies.getId()}">UPDATE</a></td>
       </tr>
       </ref:forEach>
     </table>

@@ -41,7 +41,8 @@
                     <td>${ shopping.getPName() }</td>
                     <td>${ shopping.getQuantity() }</td>
                     <td>${ shopping.getAddress() }</td>
-                    <td><a href="delete?userId=${ shopping.getId() }">DELETE</a></td>
+                    <td><a href="delete?userId=${ shopping.getId() }">DELETE</a>
+                    <a href="updateShopping?userId=${ shopping.getId() }">UPDATE</a></td>
                </tr>
                </tbody>
                 </ref:forEach>

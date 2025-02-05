@@ -1,5 +1,6 @@
 package com.xworkz.trainapp.repository;
 
+import com.xworkz.trainapp.dto.TrainBookingDto;
 import com.xworkz.trainapp.entity.TrainBookingEntity;
 
 import javax.persistence.EntityManager;
@@ -24,8 +25,8 @@ public class TrainBookingRepositoryImpl implements TrainBookingRepository{
         }
         finally {
             entityManager.close();
-            emf.close();
         }
+
     }
 
     @Override
@@ -37,16 +38,54 @@ public class TrainBookingRepositoryImpl implements TrainBookingRepository{
                     .getResultList();
         } catch (Exception e) {
             System.out.println("Error fetching appointments: " + e.getMessage());
-        } finally {
-            entityManager .close();
+        }
+        finally {
+            entityManager.close();
         }
         return trainBookingEntities;
     }
 
     public void deleteById(int id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
-        em.getTransaction().commit();
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createNamedQuery("deleteById").setParameter("id", id).executeUpdate();
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public TrainBookingEntity getProfileById(Integer id){
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (TrainBookingEntity) entityManager.createNamedQuery("getProfileById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(TrainBookingEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
     }
 }

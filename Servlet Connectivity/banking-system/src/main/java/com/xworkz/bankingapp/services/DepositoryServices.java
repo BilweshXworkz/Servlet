@@ -8,4 +8,6 @@ public interface DepositoryServices {
     boolean validAndSave(DepositoryDto dto);
     List<DepositoryDto> GetDepository();
     void deleteById(int id);
+    DepositoryDto getDepositoryById(int id);
+    void updateDepository(DepositoryDto dto);
 }

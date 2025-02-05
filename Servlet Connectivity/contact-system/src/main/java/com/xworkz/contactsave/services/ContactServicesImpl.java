@@ -63,4 +63,31 @@ public class ContactServicesImpl implements ContactServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public ContactDto getDonationById(int id) {
+        if (id > 0){
+            ContactDto dto = new ContactDto();
+            ContactEntity entity = contactRepository.getDonationById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateContact(ContactDto dto) {
+        ContactEntity entity = new ContactEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            contactRepository.updateContact(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

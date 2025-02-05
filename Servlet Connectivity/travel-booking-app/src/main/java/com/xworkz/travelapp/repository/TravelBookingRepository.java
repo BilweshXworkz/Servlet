@@ -8,4 +8,6 @@ public interface TravelBookingRepository {
     Boolean save(TravelingBookingEntity travelingBookingEntity);
     List<TravelingBookingEntity> getBookingDetails();
     void deleteById(int id);
+    TravelingBookingEntity getBookingById(int id);
+    void updateBooking(TravelingBookingEntity entity);
 }

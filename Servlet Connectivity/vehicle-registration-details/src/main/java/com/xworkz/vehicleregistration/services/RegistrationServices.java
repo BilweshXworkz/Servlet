@@ -8,4 +8,6 @@ public interface RegistrationServices {
     Boolean validAndSave(RegistrationDto dto);
     List<RegistrationDto> getRegistration();
     void deleteById(int id);
+    RegistrationDto getRegistrationById(int id);
+    void updateRegisteration(RegistrationDto dto);
 }

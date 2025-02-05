@@ -41,7 +41,8 @@
                         <td>${ apply.getPhoneNumber() }</td>
                         <td>${ apply.getEmailId() }</td>
                         <td>${ apply.getJobApplying() }</td>
-                        <td><a href="delete?userId=${ apply.getId() }">DELETE</a></td>
+                        <td><a href="delete?userId=${ apply.getId() }">DELETE</a>
+                        <a href="updateApplication?userId=${ apply.getId() }">UPDATE</a></td>
                     </tr>
                 </ref:forEach>
                 </tbody>

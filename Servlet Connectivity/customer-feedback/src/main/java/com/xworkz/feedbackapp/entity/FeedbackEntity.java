@@ -15,6 +15,7 @@ import javax.persistence.*;
 
 @Table(name = "feedback_table")
 @NamedQuery(name = "deleteById", query = "DELETE FROM FeedbackEntity r WHERE r.id = :id")
+@NamedQuery(name = "getProfileById", query = "SELECT feedBack FROM FeedbackEntity feedBack WHERE feedBack.id=:id")
 public class FeedbackEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

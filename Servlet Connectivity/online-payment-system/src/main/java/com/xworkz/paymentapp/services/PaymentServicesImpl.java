@@ -62,4 +62,31 @@ public class PaymentServicesImpl implements PaymentServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public PaymentDto getPaymentById(int id) {
+        if (id > 0){
+            PaymentDto dto = new PaymentDto();
+            PaymetEntity entity = paymentRepository.getpaymentById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updatePayment(PaymentDto paymentDto) {
+        PaymetEntity entity = new PaymetEntity();
+        try{
+            BeanUtils.copyProperties(entity, paymentDto);
+            paymentRepository.updatePayment(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

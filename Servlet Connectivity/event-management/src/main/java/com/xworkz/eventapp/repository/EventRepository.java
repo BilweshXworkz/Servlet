@@ -8,4 +8,6 @@ public interface EventRepository {
     Boolean save(EventEntity eventEntity);
     List<EventEntity> getEventDetails();
     void deleteById(int id);
+    EventEntity getDonationById(int id);
+    void updateDonation(EventEntity entity);
 }

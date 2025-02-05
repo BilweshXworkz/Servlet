@@ -59,4 +59,31 @@ public class TrainBookingServicesImpl implements TrainBookingServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public TrainBookingDto getProfileById(int id) {
+        if (id > 0){
+            TrainBookingDto dto = new TrainBookingDto();
+            TrainBookingEntity entity = trainBookingRepository.getProfileById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void UpdateProfile(TrainBookingDto dto) {
+        TrainBookingEntity entity = new TrainBookingEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            trainBookingRepository.updateProfile(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

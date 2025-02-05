@@ -8,4 +8,6 @@ public interface RegisterServices {
     Boolean validAndSave(RegisterDto dto);
     List<RegisterDto> getRegister();
     void deleteById(int id);
+    RegisterDto getProfileById(int id);
+    void UpdateProfile (RegisterDto dto);
 }

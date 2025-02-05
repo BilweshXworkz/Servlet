@@ -60,4 +60,31 @@ public class DepositoryServicesImpl implements DepositoryServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public DepositoryDto getDepositoryById(int id) {
+        if (id > 0){
+            DepositoryDto dto = new DepositoryDto();
+            DepositoryEntity entity = depositoryRepository.getDepositoryById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateDepository(DepositoryDto dto) {
+        DepositoryEntity entity = new DepositoryEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            depositoryRepository.updateDepository(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -15,6 +15,7 @@ import javax.persistence.*;
 
 @Table(name = "order_room")
 @NamedQuery(name = "deleteById", query = "DELETE FROM RoomOrderEntity r WHERE r.id = :id")
+@NamedQuery(name = "getBookingById", query = "SELECT room FROM RoomOrderEntity room WHERE room.id = :id")
 public class RoomOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

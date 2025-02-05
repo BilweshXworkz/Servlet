@@ -57,4 +57,33 @@ public class EmailRepositoryImpl implements EmailRepository{
         }
     }
 
+    @Override
+    public EmailEntity getEmailById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            return (EmailEntity) entityManager.createNamedQuery("getEmailById").setParameter("id",id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateEmail(EmailEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
 }

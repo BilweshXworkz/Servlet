@@ -9,4 +9,6 @@ public interface PaymentRepository {
     Boolean save(PaymetEntity paymetEntity);
     List<PaymetEntity> getPaymentDetails();
     public void deleteById(int id);
+    PaymetEntity getpaymentById(int id);
+    void updatePayment(PaymetEntity entity);
 }

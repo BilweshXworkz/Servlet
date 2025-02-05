@@ -48,4 +48,35 @@ public class TravelBookingRepositoryImpl implements TravelBookingRepository{
         em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
         em.getTransaction().commit();
     }
+
+    @Override
+    public TravelingBookingEntity getBookingById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (TravelingBookingEntity) entityManager.createNamedQuery("getBookingById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBooking(TravelingBookingEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
 }

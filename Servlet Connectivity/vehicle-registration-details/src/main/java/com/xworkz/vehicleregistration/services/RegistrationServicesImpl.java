@@ -65,4 +65,31 @@ public class RegistrationServicesImpl implements RegistrationServices{
             System.out.println("User profile with id " + id + " not found");
        }
     }
+
+    @Override
+    public RegistrationDto getRegistrationById(int id) {
+        if (id > 0){
+            RegistrationDto dto = new RegistrationDto();
+            RegistrationEntity entity = repository.getRegistrationById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateRegisteration(RegistrationDto dto) {
+        RegistrationDto entity = new RegistrationDto();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            repository.updateRegistration(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

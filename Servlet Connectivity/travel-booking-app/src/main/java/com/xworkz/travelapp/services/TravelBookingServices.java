@@ -9,4 +9,6 @@ public interface TravelBookingServices {
     Boolean validAndSave(TravelBookingDto dto);
     List<TravelBookingDto> getBooking();
     public void deleteById(int id);
+    TravelBookingDto getBookingById(int id);
+    void updateBooking(TravelBookingDto dto);
 }

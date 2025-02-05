@@ -8,4 +8,6 @@ public interface CollegeApplicationServices {
     Boolean ValidAndSave(CollegeApplicationDto dto);
     List<CollegeApplicationDto> getApplication();
     void deleteById(int id);
+    CollegeApplicationDto getProfileById(Integer id);
+    void updateProfile(CollegeApplicationDto dto);
 }

@@ -8,4 +8,6 @@ public interface ShoppingServices {
     Boolean ValidAndSave(ShoppingDto shoppingDto);
     List<ShoppingDto> getShopping();
     void deleteById(int id);
+    ShoppingDto getShoppingById(int id);
+    void updateShopping(ShoppingDto shoppingDto);
 }

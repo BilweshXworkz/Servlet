@@ -8,4 +8,6 @@ public interface CourseApplicationServices {
     Boolean ValidAndSave(CourseApplicationDto dto);
     List<CourseApplicationDto> getCourse();
     void deleteById(int id);
+    CourseApplicationDto getCourseById(int id);
+    void updateCourse(CourseApplicationDto dto);
 }

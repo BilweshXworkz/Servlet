@@ -9,4 +9,6 @@ public interface EventServices {
     Boolean validAndSave(EventDto eventDto);
     List<EventDto> getEvent();
     void deleteById(int id);
+    EventDto getDonationById(int id);
+    void updateEvent(EventDto eventDto);
 }

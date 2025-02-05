@@ -67,4 +67,32 @@ public class CollegeApplicationServicesImpl implements CollegeApplicationService
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public CollegeApplicationDto getProfileById(Integer id) {
+        if (id > 0){
+            CollegeApplicationDto dto = new CollegeApplicationDto();
+            CollegeApplicationEntity entity = collegeApplicationRepository.getById(id);
+            try{
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            }
+            catch (IllegalAccessException | InvocationTargetException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(CollegeApplicationDto dto) {
+        CollegeApplicationEntity entity = new CollegeApplicationEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            collegeApplicationRepository.updateProfile(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -62,4 +62,31 @@ public class TravelBookingServicesImpl implements TravelBookingServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public TravelBookingDto getBookingById(int id) {
+        if (id > 0){
+            TravelBookingDto dto = new TravelBookingDto();
+            TravelingBookingEntity entity = travelBookingRepository.getBookingById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBooking(TravelBookingDto dto) {
+        TravelingBookingEntity entity = new TravelingBookingEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            travelBookingRepository.updateBooking(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

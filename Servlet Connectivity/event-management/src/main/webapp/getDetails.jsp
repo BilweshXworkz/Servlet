@@ -41,7 +41,8 @@
         <td>${ event.getEmail() }</td>
         <td>${ event.getAddress() }</td>
         <td>${ event.getEventType() }</td>
-        <td><a href="delete?userId=${event.getId()}">DELETE</a></td>
+        <td><a href="delete?userId=${event.getId()}">DELETE</a>
+        <a href="GetEventById?userId=${event.getId()}">Edit</a></td>
       </tr>
       </tbody>
       </ref:forEach>

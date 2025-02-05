@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.naming.Name;
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ import javax.persistence.*;
 
 @Table(name = "register")
 @NamedQuery(name = "deleteById", query = "DELETE FROM RegisterEntity r WHERE r.id = :id")
+@NamedQuery(name = "updateById", query = "SELECT register FROM RegisterEntity register WHERE register.id = :id ")
 public class RegisterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,4 +9,6 @@ public interface FeedbackServices {
     Boolean ValidAndSave(FeedbackDto dto);
     List<FeedbackDto> getFeedback();
     void deleteById(int id);
+    FeedbackDto updateById(Integer id);
+    void updateProfile(FeedbackDto dto);
 }

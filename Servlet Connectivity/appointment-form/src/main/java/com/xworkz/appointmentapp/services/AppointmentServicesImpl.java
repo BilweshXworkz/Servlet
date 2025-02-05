@@ -61,4 +61,30 @@ public class AppointmentServicesImpl implements AppointmentServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public AppointmentDto getProfileById(Integer id) {
+        if (id > 0){
+            AppointmentDto dto = new AppointmentDto();
+            AppointmentEntity entity = appointmentRepository.getProfileById(id);
+            try{
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void UpdateProfile(AppointmentDto dto) {
+        AppointmentEntity entity =new AppointmentEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            appointmentRepository.updateProfile(entity);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

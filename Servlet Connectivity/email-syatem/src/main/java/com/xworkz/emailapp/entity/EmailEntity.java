@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@NamedQuery(name="getEmailById", query="SELECT email FROM EmailEntity email WHERE email.id=:id")
 @Table(name = "mail")
 public class EmailEntity {
     @Id

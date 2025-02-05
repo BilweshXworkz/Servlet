@@ -47,8 +47,46 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
 
     public void deleteById(int id) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("deleteById").setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public FeedbackEntity getProfileById(Integer id) {
+        EntityManager entity = emf.createEntityManager();
+        try{
+            return (FeedbackEntity) entity.createNamedQuery("getProfileById").setParameter("id",id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entity.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(FeedbackEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
     }
 }

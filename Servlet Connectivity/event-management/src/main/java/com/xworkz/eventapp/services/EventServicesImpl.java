@@ -60,4 +60,31 @@ public class EventServicesImpl implements EventServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public EventDto getDonationById(int id) {
+        if (id > 0){
+            EventDto dto = new EventDto();
+            EventEntity entity = eventRepository.getDonationById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateEvent(EventDto eventDto) {
+        EventEntity entity = new EventEntity();
+        try{
+            BeanUtils.copyProperties(entity, eventDto);
+            eventRepository.updateDonation(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

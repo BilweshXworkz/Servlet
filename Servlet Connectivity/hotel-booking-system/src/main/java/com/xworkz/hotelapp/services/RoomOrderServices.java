@@ -8,4 +8,7 @@ public interface RoomOrderServices {
     Boolean validAndSave(RoomOrderDto dto);
     List<RoomOrderDto> getRoom();
     void deleteById(int id);
+    RoomOrderDto getBookingById(int id);
+
+    void updateBooking(RoomOrderDto dto);
 }

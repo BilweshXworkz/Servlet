@@ -6,4 +6,6 @@ public interface DonationServices {
     Boolean ValidAndSave(DonationDto dto);
     List<DonationDto> getDonation();
     void deleteById(int id);
+    DonationDto getDonationById(int id);
+    void updateDonation(DonationDto dto);
 }

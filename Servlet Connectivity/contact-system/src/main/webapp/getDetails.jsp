@@ -41,7 +41,8 @@
                     <td>${ contact.getPhoneNumber() }</td>
                     <td>${ contact.getEmailId() }</td>
                     <td>${ contact.getDescription() }</td>
-                    <td><a href="delete?userId=${contact.getId()}">DELETE</a></td>
+                    <td><a href="delete?userId=${contact.getId()}">DELETE</a>
+                    <a href="updateContact?userId=${contact.getId()}">UPDATE</a></td>
                </tr>
             </tbody>
             </ref:forEach>

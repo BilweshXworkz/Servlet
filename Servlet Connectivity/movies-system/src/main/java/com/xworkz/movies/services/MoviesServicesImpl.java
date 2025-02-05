@@ -63,4 +63,31 @@ public class MoviesServicesImpl implements MoviesServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public MoviesDto getProfileById(int id) {
+        if (id > 0){
+            MoviesDto dto = new MoviesDto();
+            MoviesEntity entity = moviesRepository.getProfileById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(MoviesDto dto) {
+        MoviesEntity entity = new MoviesEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            moviesRepository.updateDonation(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

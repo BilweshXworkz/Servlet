@@ -41,7 +41,8 @@
                         <td>${ flightDto.getDeparture() }</td>
                         <td>${ flightDto.getReturns() }</td>
                         <td>${ flightDto.getNumber() }</td>
-                        <td><a href="delete?userId=${ flightDto.getId() }">DELETE</a></td>
+                        <td><a href="delete?userId=${ flightDto.getId() }" class="btn btn-secondary mt-3">DELETE</a> &nbsp;
+                         <a href="getProfileById?userId=${flightDto.getId()}" class="btn btn-secondary mt-3">Update</a></td>
                     </tr>
                 </tbody>
                 </ref:forEach>

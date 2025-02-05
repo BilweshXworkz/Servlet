@@ -28,7 +28,7 @@
         <label for="form-label">Email ID</label>
         <input type="text" name="emailId">
         <label for="form-label">Graduation</label>
-        <input type="text" name="graduation">
+        <input type="text" name="education">
     </div>
     <div class="md-3">
         <button type="submit" value="Submit" class="btn btn-primary mt-3">Submit</button>

@@ -39,7 +39,8 @@
                     <td>${ application.getPhoneNumber() }</td>
                     <td>${ application.getEmailId() }</td>
                     <td>${ application.getEducation() }</td>
-                    <td><a href="delete?userId=${application.getId()}">DELETE</a></td>
+                    <td><a href="delete?userId=${application.getId()}">DELETE</a>
+                    <a href="getprofileById?userId=${application.getId()}">Update</a></td>
                </tr>
                </ref:forEach>
             </table>

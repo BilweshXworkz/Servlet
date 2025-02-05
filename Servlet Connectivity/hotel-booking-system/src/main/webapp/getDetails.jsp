@@ -40,7 +40,8 @@
                         <td>${ order.getHotel() }</td>
                         <td>${ order.getStayTime() }</td>
                         <td>${ order.getNumberRoom() }</td>
-                        <td><a href="delete?userId=${order.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${order.getId()}">DELETE</a>
+                        <a href="updateByBooking?userId=${order.getId()}">UPDATE</a></td>
                    </tr>
                    </ref:forEach>
                </table>

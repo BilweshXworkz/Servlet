@@ -8,4 +8,6 @@ public interface EmailRepository {
     Boolean save(EmailEntity emailEntity);
     List<EmailEntity> getEmailDetails();
     void deleteByToEmail(String toEmail);
+    EmailEntity getEmailById(int id);
+    void updateEmail(EmailEntity entity);
 }

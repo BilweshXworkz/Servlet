@@ -64,4 +64,31 @@ public class BookTableServicesImpl implements BookTableServices{
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public BookTableDto getTableById(int id) {
+        if (id > 0){
+            BookTableDto dto = new BookTableDto();
+            BookTableEntity entity = bookTableRepository.getTableById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateTable(BookTableDto dto) {
+        BookTableEntity entity = new BookTableEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            bookTableRepository.updateTable(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

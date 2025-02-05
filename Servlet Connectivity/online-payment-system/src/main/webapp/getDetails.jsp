@@ -41,7 +41,8 @@
                     <td>${ payment.getIfsCode() }</td>
                     <td>${ payment.getAccount() }</td>
                     <td>${ payment.getAmount() }</td>
-                    <td><a href="delete?userId=${payment.getId()}">DELETE</a></td>
+                    <td><a href="delete?userId=${payment.getId()}">DELETE</a>
+                    <a href="GetPaymentById?userId=${payment.getId()}">Update</a></td>
                 </tr>
                 </tbody>
                 </ref:forEach>

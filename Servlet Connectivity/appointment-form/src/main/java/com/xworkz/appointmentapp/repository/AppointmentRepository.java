@@ -8,4 +8,6 @@ public interface AppointmentRepository {
     Boolean save(AppointmentEntity appointmentEntity);
     List<AppointmentEntity> getAppointmentDetails();
     void deleteById(int id);
+    AppointmentEntity getProfileById(Integer id);
+    void updateProfile(AppointmentEntity entity);
 }

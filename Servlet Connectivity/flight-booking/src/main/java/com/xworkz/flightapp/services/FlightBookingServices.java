@@ -9,4 +9,9 @@ public interface FlightBookingServices {
     boolean valideAndSave(FlightBookingDto dto);
     List<FlightBookingDto> getflight();
     void deleteById(int id);
+    FlightBookingDto getProfileById(int id);
+    void updateProfileById(FlightBookingDto dto);
+
+//    updateProfile();
+
 }

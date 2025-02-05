@@ -8,4 +8,6 @@ public interface FeedbackRepository {
     Boolean save (FeedbackEntity feedbackEntity);
     List<FeedbackEntity> getFeedbackDetails();
     void deleteById(int id);
+    FeedbackEntity getProfileById(Integer id);
+    void updateProfile(FeedbackEntity entity);
 }

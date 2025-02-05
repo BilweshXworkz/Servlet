@@ -38,7 +38,8 @@
                         <td>${ booking.getPhoneNumber() }</td>
                         <td>${ booking.getPerson() }</td>
                         <td>${ booking.getTime() }</td>
-                        <td><a href="delete?userId=${booking.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${booking.getId()}">DELETE</a>
+                        <a href="updateTableId?userId=${booking.getId()}">Update</a></td>
                     </tr>
                </tbody>
                 </ref:forEach>

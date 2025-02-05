@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Table(name = "flight_booking")
 @NamedQuery(name = "deleteById", query = "DELETE FROM FlightBookingEntity r WHERE r.id = :id")
+@NamedQuery(name = "getById", query = "SELECT flight From FlightBookingEntity flight WHERE flight.id = :id")
 public class FlightBookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

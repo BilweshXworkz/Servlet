@@ -58,4 +58,31 @@ public class RoomOrderServicesImpl implements RoomOrderServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public RoomOrderDto getBookingById(int id) {
+        if (id > 0){
+            RoomOrderDto dto = new RoomOrderDto();
+            RoomOrderEntity entity = roomRepository.getBookingById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBooking(RoomOrderDto dto) {
+        RoomOrderEntity entity = new RoomOrderEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            roomRepository.updateBooking(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

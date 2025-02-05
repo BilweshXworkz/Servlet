@@ -9,4 +9,6 @@ public interface JobApplyRepository {
     Boolean save (JobApplyEntity jobApplyEntity);
     List<JobApplyEntity> getApplyDetails();
     void deleteById(int id);
+    JobApplyEntity getApplyById(int id);
+    void updateApplication(JobApplyEntity entity);
 }

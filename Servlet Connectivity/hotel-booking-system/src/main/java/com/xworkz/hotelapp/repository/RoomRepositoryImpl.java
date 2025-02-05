@@ -47,4 +47,35 @@ public class RoomRepositoryImpl implements RoomOrderRepository {
         em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
         em.getTransaction().commit();
     }
+
+    @Override
+    public RoomOrderEntity getBookingById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (RoomOrderEntity) entityManager.createNamedQuery("getBookingById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBooking(RoomOrderEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
 }

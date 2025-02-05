@@ -8,4 +8,6 @@ public interface EmailServices {
     Boolean validAndSave(EmailDto dto);
     List<EmailDto> getEmail();
     void deleteByToEmail(String toEmail);
+    EmailDto getEmailByProfile(int id);
+    void updateMail(EmailDto dto);
 }

@@ -15,6 +15,7 @@ import javax.persistence.*;
 
 @Table(name = "train_booking")
 @NamedQuery(name = "deleteById", query = "DELETE FROM TrainBookingEntity r WHERE r.id = :id")
+@NamedQuery(name = "getProfileById", query = "SELECT train From TrainBookingEntity train WHERE train.id = :id")
 public class TrainBookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

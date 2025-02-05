@@ -33,10 +33,5 @@ public class DonationServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
-//        PrintWriter printWriter = resp.getWriter();
-//        printWriter.write("Donater name : "+name+"\n");
-//        printWriter.write("Phone Number : "+pNumber+"\n");
-//        printWriter.write("Donate Amount : "+dAmount+"\n");
-//        printWriter.write("Payment Method : "+payment+"\n");
     }
 }

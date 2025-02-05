@@ -8,4 +8,6 @@ public interface RoomOrderRepository {
     Boolean save(RoomOrderEntity roomOrderEntity);
     List<RoomOrderEntity> getOrderDetails();
     void deleteById(int id);
+    RoomOrderEntity getBookingById(int id);
+    void updateBooking(RoomOrderEntity entity);
 }

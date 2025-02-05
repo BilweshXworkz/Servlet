@@ -36,7 +36,8 @@
         <td>${ email.getToMail() }</td>
         <td>${ email.getSubject() }</td>
         <td>${ email.getContent() }</td>
-        <td><a  href="deleteEmail?toEmail=${email.toMail}">Delete</a></td>
+        <td><a  href="deleteEmail?toEmail=${email.toMail}">Delete</a>
+        <a  href="updateEmail?userId=${email.getId()}">Update</a></td>
       </tr>
       <tbody>
       </ref:forEach>

@@ -22,7 +22,6 @@ public class FlightBookingRepositoryImpl implements  FlightBookingRepository{
             return false;
         }finally {
             entityManager.close();
-            emf.close();
         }
     }
 
@@ -42,9 +41,49 @@ public class FlightBookingRepositoryImpl implements  FlightBookingRepository{
     }
 
     public void deleteById(int id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
-        em.getTransaction().commit();
+        try {
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.createNamedQuery("deleteById").setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            emf.close();
+        }
     }
+
+    @Override
+    public FlightBookingEntity getFlightById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (FlightBookingEntity) entityManager.createNamedQuery("getById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateFlight(FlightBookingEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
+
 }

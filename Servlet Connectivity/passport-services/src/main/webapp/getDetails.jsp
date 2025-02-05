@@ -41,7 +41,8 @@
                         <td>${ register.getDob() }</td>
                         <td>${ register.getEmail() }</td>
                         <td>${ register.getAddress() }</td>
-                        <td><a href="delete?userId=${register.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${register.getId()}">DELETE</a>
+                         <a href="getProfileById?userId=${register.getId()}" class="btn btn-secondary mt-3">Update</a></td>
                     </tr>
                 </tbody>
                 </ref:forEach>

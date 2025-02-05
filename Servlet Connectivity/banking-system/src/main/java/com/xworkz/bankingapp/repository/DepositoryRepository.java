@@ -8,4 +8,6 @@ public interface DepositoryRepository {
     Boolean save(DepositoryEntity depositoryEntity);
     List<DepositoryEntity> getDepositoryDetails();
     void deleteById(int id);
+    DepositoryEntity getDepositoryById(int id);
+    void updateDepository(DepositoryEntity entity);
 }

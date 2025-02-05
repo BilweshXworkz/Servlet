@@ -63,4 +63,31 @@ public class ShoppingServicesImpl implements ShoppingServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public ShoppingDto getShoppingById(int id) {
+        if (id > 0){
+            ShoppingDto dto = new ShoppingDto();
+            ShoppingEntity entity = shoppingRepository.getShoppingById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateShopping(ShoppingDto shoppingDto) {
+        ShoppingEntity entity = new ShoppingEntity();
+        try{
+            BeanUtils.copyProperties(entity, shoppingDto);
+            shoppingRepository.updateShopping(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

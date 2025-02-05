@@ -37,7 +37,8 @@
                         <td>${appointment.phoneNumber}</td>
                         <td>${appointment.emailid}</td>
                         <td>${appointment.adate}</td>
-                        <td><a href="delete?userId=${appointment.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${appointment.getId()}">DELETE</a> &nbsp
+                        <a href="getProfileById?userId=${appointment.getId()}">Update</a></td>
                     </tr>
                 </ref:forEach>
             </table>

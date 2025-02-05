@@ -8,4 +8,6 @@ public interface ContactRepository {
     Boolean save (ContactEntity contactEntity);
     List<ContactEntity> getContactDetails();
     void deleteById(int id);
+    ContactEntity getDonationById(int id);
+    void updateContact(ContactEntity entity);
 }

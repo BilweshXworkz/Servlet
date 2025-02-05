@@ -63,4 +63,31 @@ public class DonationServicesImpl implements DonationServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public DonationDto getDonationById(int id) {
+        if (id > 0){
+            DonationDto dto = new DonationDto();
+            DonationEntity entity = donationRepository.getDonationById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateDonation(DonationDto dto) {
+        DonationEntity entity = new DonationEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            donationRepository.updateDonation(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

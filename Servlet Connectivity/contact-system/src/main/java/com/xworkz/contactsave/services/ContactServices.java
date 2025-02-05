@@ -8,4 +8,6 @@ public interface ContactServices {
     Boolean validAndSave(ContactDto dto);
     List<ContactDto> getContact();
     void deleteById(int id);
+    ContactDto getDonationById(int id);
+    void updateContact(ContactDto dto);
 }

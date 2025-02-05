@@ -8,4 +8,6 @@ public interface BookTableServices {
     Boolean validAndSave(BookTableDto dto);
     List<BookTableDto> getBook();
     void deleteById(int id);
+    BookTableDto getTableById(int id);
+    void updateTable(BookTableDto dto);
 }

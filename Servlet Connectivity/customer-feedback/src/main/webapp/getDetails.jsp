@@ -40,7 +40,8 @@
         <td>${feedback.getPhoneNumber()}</td>
         <td>${feedback.getEmailId()}</td>
         <td>${feedback.getEducation()}</td>
-        <td><a href="delete?userId=${feedback.getId()}">DELETE</a></td>
+        <td><a href="delete?userId=${feedback.getId()}" >DELETE</a>
+        <a href="updateById?userId=${feedback.getId()}">Edit</a></td>
       </tr>
       </tbody>
       </ref:forEach>

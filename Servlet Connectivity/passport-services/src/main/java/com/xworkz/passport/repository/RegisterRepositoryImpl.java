@@ -48,4 +48,35 @@ public class RegisterRepositoryImpl implements RegisterRepository{
         em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
         em.getTransaction().commit();
     }
+
+    @Override
+    public RegisterEntity getProfileById(Integer id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (RegisterEntity) entityManager.createNamedQuery("updateById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(RegisterEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
 }

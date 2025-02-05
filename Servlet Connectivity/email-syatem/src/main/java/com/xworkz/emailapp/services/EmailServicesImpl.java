@@ -58,4 +58,31 @@ public class EmailServicesImpl implements EmailServices{
     public void deleteByToEmail(String toEmail) {
         emailRepository.deleteByToEmail(toEmail);
     }
+
+    @Override
+    public EmailDto getEmailByProfile(int id) {
+        if (id > 0){
+            EmailDto dto = new EmailDto();
+            EmailEntity entity = emailRepository.getEmailById(id);
+            try{
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            }
+            catch (IllegalAccessException | InvocationTargetException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateMail(EmailDto dto) {
+        EmailEntity entity =new EmailEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            emailRepository.updateEmail(entity);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

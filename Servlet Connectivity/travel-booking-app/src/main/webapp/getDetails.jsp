@@ -41,7 +41,8 @@
                     <td>${ booking.getStart() }</td>
                     <td>${ booking.getTraveling() }</td>
                     <td>${ booking.getVehicle() }</td>
-                    <td><a href="delete?userId=${booking.getId()}">DELETE</a></td>
+                    <td><a href="delete?userId=${booking.getId()}">DELETE</a>
+                    <a href="updateById?userId=${booking.getId()}">Update</a></td>
                   </tr>
                 </tbody>
       </ref:forEach>

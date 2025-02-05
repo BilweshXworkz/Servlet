@@ -43,8 +43,45 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     public void deleteById(int id) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public AppointmentEntity getProfileById(Integer id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            return (AppointmentEntity) entityManager.createNamedQuery("updateProfile").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(AppointmentEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
     }
 }

@@ -8,4 +8,6 @@ public interface BookTableRepository {
     Boolean save(BookTableEntity bookTableEntity);
     List<BookTableEntity> getBookDetails();
     void deleteById(int id);
+    BookTableEntity getTableById(int id);
+    void updateTable(BookTableEntity entity);
 }

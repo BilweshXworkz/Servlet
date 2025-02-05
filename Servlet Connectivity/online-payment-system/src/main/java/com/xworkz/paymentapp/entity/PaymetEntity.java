@@ -15,6 +15,7 @@ import javax.persistence.*;
 
 @Table(name = "payment")
 @NamedQuery(name = "deleteById", query = "DELETE FROM PaymetEntity r WHERE r.id = :id")
+@NamedQuery(name = "getPaymentById", query = "SELECT payment FROM PaymetEntity payment WHERE payment.id = :id")
 public class PaymetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

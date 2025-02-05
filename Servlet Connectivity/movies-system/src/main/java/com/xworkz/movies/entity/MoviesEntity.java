@@ -14,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name = "deleteById", query = "DELETE FROM MoviesEntity r WHERE r.id = :id")
+@NamedQuery(name = "getProfileById", query = "SELECT movie From MoviesEntity movie WHERE movie.id = :id")
 @Table(name = "movie")
 public class MoviesEntity {
     @Id

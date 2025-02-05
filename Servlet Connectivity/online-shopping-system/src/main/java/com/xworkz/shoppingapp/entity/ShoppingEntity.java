@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name = "deleteById", query = "DELETE FROM ShoppingEntity r WHERE r.id = :id")
+@NamedQuery(name = "getShoppingById", query = "SELECT shop FROM ShoppingEntity shop WHERE shop.id = :id")
 @Table(name = "shop_table")
 
 public class ShoppingEntity {

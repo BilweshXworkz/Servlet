@@ -64,4 +64,30 @@ public class FeedbackServicesImpl implements FeedbackServices {
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public FeedbackDto updateById(Integer id) {
+        if (id > 0){
+            FeedbackDto dto = new FeedbackDto();
+            FeedbackEntity entity = new FeedbackEntity();
+            try{
+                BeanUtils.copyProperties(dto,entity);
+                return dto;
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProfile(FeedbackDto dto) {
+        FeedbackEntity entity =new FeedbackEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            feedbackRepository.updateProfile(entity);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

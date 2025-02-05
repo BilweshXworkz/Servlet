@@ -9,4 +9,6 @@ public interface PaymentServices {
     Boolean validAndSave(PaymentDto paymentDto);
     List<PaymentDto> getPayment();
     void deleteById(int id);
+    PaymentDto getPaymentById(int id);
+    void updatePayment(PaymentDto paymentDto);
 }

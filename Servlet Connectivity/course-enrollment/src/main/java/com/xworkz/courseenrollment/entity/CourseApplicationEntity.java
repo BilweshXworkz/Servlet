@@ -15,6 +15,7 @@ import javax.persistence.*;
 
 @Table(name = "course_table")
 @NamedQuery(name = "deleteById", query = "DELETE FROM CourseApplicationEntity r WHERE r.id = :id")
+@NamedQuery(name = "getCourseById", query = "SELECT r FROM CourseApplicationEntity r WHERE r.id = :id")
 public class CourseApplicationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

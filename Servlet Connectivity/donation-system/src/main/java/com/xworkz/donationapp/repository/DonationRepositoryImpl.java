@@ -46,8 +46,46 @@ public class DonationRepositoryImpl implements DonationRepository {
 
     public void deleteById(int id) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("deleteById").setParameter("id", id).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public DonationEntity getDonationById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (DonationEntity) entityManager.createNamedQuery("getProfileById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateDonation(DonationEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
     }
 }

@@ -41,7 +41,8 @@
                         <td>${ bankDetail.getDob() }</td>
                         <td>${ bankDetail.getAcNumber() }</td>
                         <td>${ bankDetail.getDepository() }</td>
-                        <td><a href="delete?userId=${bankDetail.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${bankDetail.getId()}">DELETE</a>
+                        <a href="getById?userId=${bankDetail.getId()}">UPDATE</a></td>
                     </tr>
                 </tbody>
                 </ref:forEach>

@@ -9,4 +9,6 @@ public interface ShoppingRepository {
     Boolean save(ShoppingEntity shoppingEntity);
     List<ShoppingEntity> getShoppingDetails();
     void deleteById(int id);
+    ShoppingEntity getShoppingById(int id);
+    void updateShopping(ShoppingEntity entity);
 }

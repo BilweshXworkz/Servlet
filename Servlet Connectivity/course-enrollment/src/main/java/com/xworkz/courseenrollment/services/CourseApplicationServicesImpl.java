@@ -64,4 +64,31 @@ public class CourseApplicationServicesImpl implements CourseApplicationServices 
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public CourseApplicationDto getCourseById(int id) {
+        if (id > 0){
+            CourseApplicationDto dto = new CourseApplicationDto();
+            CourseApplicationEntity entity = courseApplicationRepository.getCourseById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateCourse(CourseApplicationDto dto) {
+        CourseApplicationEntity entity = new CourseApplicationEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            courseApplicationRepository.updateCourse(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

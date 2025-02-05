@@ -39,7 +39,8 @@
         <td>${ donation.getPhoneNumber() }</td>
         <td>${ donation.getDAmount() }</td>
         <td>${ donation.getPayment() }</td>
-        <td><a href="delete?userId=${donation.getId()}">DELETE</a></td>
+        <td><a href="delete?userId=${donation.getId()}">DELETE</a>
+        <a href="GetDonationById?userId=${donation.getId()}">UPDATE</a></td>
       </tr>
       </tbody>
       </ref:forEach>

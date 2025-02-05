@@ -45,7 +45,8 @@
                         <td>${ registration.getVehicleName() }</td>
                         <td>${ registration.getVehicleType() }</td>
                         <td>${ registration.getCode() }</td>
-                        <td><a href="delete?userId=${registration.getId()}">DELETE</a></td>
+                        <td><a href="delete?userId=${registration.getId()}">DELETE</a>
+                        <a href="updateById?userId=${registration.getId()}">Update</a></td>
                     </tr>
                 </tbody>
                 </ref:forEach>

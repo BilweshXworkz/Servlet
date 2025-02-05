@@ -62,4 +62,31 @@ RegisterRepository registerRepository = new RegisterRepositoryImpl();
             System.out.println("User profile with id " + id + " not found");
         }
     }
+
+    @Override
+    public RegisterDto getProfileById(int id) {
+        if (id > 0){
+            RegisterDto dto = new RegisterDto();
+            RegisterEntity entity = registerRepository.getProfileById(id);
+            try {
+                BeanUtils.copyProperties(dto, entity);
+                return dto;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void UpdateProfile(RegisterDto dto) {
+        RegisterEntity entity = new RegisterEntity();
+        try{
+            BeanUtils.copyProperties(entity, dto);
+            registerRepository.updateProfile(entity);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

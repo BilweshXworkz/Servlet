@@ -7,5 +7,7 @@ import java.util.List;
 public interface TrainBookingRepository {
     Boolean save(TrainBookingEntity trainBookingEntity);
     List<TrainBookingEntity> getTrainDetails();
-    public void deleteById(int id);
+    void deleteById(int id);
+    TrainBookingEntity getProfileById(Integer id);
+    void updateProfile(TrainBookingEntity entity);
 }

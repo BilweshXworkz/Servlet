@@ -50,4 +50,35 @@ public class DepositoryRepositoryImpl implements DepositoryRepository{
         em.getTransaction().commit();
     }
 
+    @Override
+    public DepositoryEntity getDepositoryById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (DepositoryEntity) entityManager.createNamedQuery("getDepositoryById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateDepository(DepositoryEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
 }

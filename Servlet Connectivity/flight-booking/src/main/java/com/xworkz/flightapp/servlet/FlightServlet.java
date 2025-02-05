@@ -11,14 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/apply")
+@WebServlet(urlPatterns = "/apply", loadOnStartup = +1)
 public class FlightServlet extends HttpServlet {
+
+    public FlightServlet(){
+        System.out.println("Adding Profile Details");
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("Setvlet Started");
+        System.out.println("Servlet Started");
         String fName = req.getParameter("fName");
         String from = req.getParameter("from");
         String departure= req.getParameter("departure");
@@ -38,5 +42,6 @@ public class FlightServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
+        System.out.println("Servlet Ended");
     }
 }

@@ -49,4 +49,35 @@ public class ShoppingRepositoryImpl implements ShoppingRepository {
         em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
         em.getTransaction().commit();
     }
+
+    @Override
+    public ShoppingEntity getShoppingById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            return (ShoppingEntity) entityManager.createNamedQuery("getShoppingById").setParameter("id", id).getSingleResult();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateShopping(ShoppingEntity entity) {
+        EntityManager entityManager = emf.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally {
+            entityManager.close();
+        }
+    }
 }
