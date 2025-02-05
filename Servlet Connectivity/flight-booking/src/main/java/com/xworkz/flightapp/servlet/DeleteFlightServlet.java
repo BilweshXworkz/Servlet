@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = "/delete")
+@WebServlet(urlPatterns = "/delete", loadOnStartup = +1)
 public class DeleteFlightServlet extends HttpServlet {
+    @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet Delete Initialization");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
@@ -21,5 +26,10 @@ public class DeleteFlightServlet extends HttpServlet {
         flightBookingServices.deleteById(Integer.parseInt(userId));
         RequestDispatcher dispatcher = req.getRequestDispatcher("getDetails.jsp");
         dispatcher.forward(req,resp);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Servlet Delete Destroyed");
     }
 }

@@ -15,6 +15,11 @@ import java.io.IOException;
 @WebServlet (urlPatterns = "/getProfileById")
 public class GetProfileByIdServlet extends HttpServlet {
     @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet ProfileById Initialization");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("userId");
         FlightBookingServices services = new FlightBookingServicesImpl();
@@ -22,5 +27,10 @@ public class GetProfileByIdServlet extends HttpServlet {
         req.setAttribute("dto", dto);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("updateProfile.jsp");
         requestDispatcher.forward(req,resp);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Servlet ProfileById Destroyed");
     }
 }

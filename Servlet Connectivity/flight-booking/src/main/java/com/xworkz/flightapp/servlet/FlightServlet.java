@@ -20,6 +20,11 @@ public class FlightServlet extends HttpServlet {
     }
 
     @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet Flight Initialization");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         System.out.println("Servlet Started");
@@ -43,5 +48,10 @@ public class FlightServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("responses.jsp");
         requestDispatcher.forward(req,resp);
         System.out.println("Servlet Ended");
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Servlet Flight Destroyed");
     }
 }

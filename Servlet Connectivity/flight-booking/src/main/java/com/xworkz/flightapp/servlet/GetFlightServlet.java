@@ -18,11 +18,21 @@ public class GetFlightServlet extends HttpServlet {
     FlightBookingServices flightBookingServices = new FlightBookingServicesImpl();
 
     @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet GetFlight Initialization");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<FlightBookingDto> flightBookingDtos = flightBookingServices.getflight();
         req.setAttribute("flightDto", flightBookingDtos);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("getDetails.jsp");
         requestDispatcher.forward(req,resp);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Servlet GetFlight Destroyed");
     }
 }

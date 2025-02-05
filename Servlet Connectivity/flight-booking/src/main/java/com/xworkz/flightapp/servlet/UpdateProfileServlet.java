@@ -15,6 +15,12 @@ import java.io.IOException;
 
 @WebServlet (urlPatterns = "/update")
 public class UpdateProfileServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        System.out.println("Servlet Update Initialization");
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Setvlet Started");
@@ -40,5 +46,10 @@ public class UpdateProfileServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("updateProfile.jsp");
         requestDispatcher.forward(req,resp);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("Servlet Update Destroyed");
     }
 }
